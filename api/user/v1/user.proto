@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package user.v1;
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+
+option go_package = "github.com/hoquangnam45/pharmacy-user/api/user/v1;v1";
+option java_multiple_files = true;
+option java_package = "dev.kratos.api.user.v1";
+option java_outer_classname = "AuthProtoV1";
+
+service User {
+  rpc FetchUserInfo (UserInfo) returns (UserInfo) {
+    option (google.api.http) = {
+      get: "/user"
+    };
+  }
+  rpc RemoveUserInfo (UserInfo) returns (UserInfo) {
+    option (google.api.http) = {
+      delete: "/user"
+    };
+  }
+  rpc CreateUserInfo (UserInfo) returns (UserInfo) {
+    option (google.api.http) = {
+      post: "/user"
+      body: "*"
+    };
+  }
+  rpc UpdateUserInfo (UserInfoUpdateRequest) returns (UserInfo) {
+    option (google.api.http) = {
+      put: "/user/{id}"
+      body: "userInfo"
+    };
+  }
+}
+
+service HealthCheck {
+  rpc HealthCheck (google.protobuf.Empty) returns (google.protobuf.Struct) {
+    option (google.api.http) = {
+      get: "/user/healthcheck"
+    };
+  }
+}
+
+message UserInfo {
+  string username = 1;
+  string email = 2;
+  string phoneNumber = 3;
+  repeated Address addresses = 4;
+  repeated Contact contacts = 5;
+}
+
+message Address {
+  string address = 1;
+  string city = 2;
+}
+
+message Contact {
+  string phoneNumber = 1;
+  string email = 2;
+}
+
+message UserInfoUpdateRequest {
+  string id = 1;
+  UserInfo userInfo = 2;
+}

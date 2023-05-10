@@ -1,0 +1,146 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: ""
+    version: 0.0.1
+paths:
+    /user:
+        get:
+            tags:
+                - User
+            operationId: User_FetchUserInfo
+            parameters:
+                - name: username
+                  in: query
+                  schema:
+                    type: string
+                - name: email
+                  in: query
+                  schema:
+                    type: string
+                - name: phoneNumber
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/user.v1.UserInfo'
+        post:
+            tags:
+                - User
+            operationId: User_CreateUserInfo
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/user.v1.UserInfo'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/user.v1.UserInfo'
+        delete:
+            tags:
+                - User
+            operationId: User_RemoveUserInfo
+            parameters:
+                - name: username
+                  in: query
+                  schema:
+                    type: string
+                - name: email
+                  in: query
+                  schema:
+                    type: string
+                - name: phoneNumber
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/user.v1.UserInfo'
+    /user/healthcheck:
+        get:
+            tags:
+                - HealthCheck
+            operationId: HealthCheck_HealthCheck
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+    /user/{id}:
+        put:
+            tags:
+                - User
+            operationId: User_UpdateUserInfo
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/user.v1.UserInfo'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/user.v1.UserInfo'
+components:
+    schemas:
+        user.v1.Address:
+            type: object
+            properties:
+                address:
+                    type: string
+                city:
+                    type: string
+        user.v1.Contact:
+            type: object
+            properties:
+                phoneNumber:
+                    type: string
+                email:
+                    type: string
+        user.v1.UserInfo:
+            type: object
+            properties:
+                username:
+                    type: string
+                email:
+                    type: string
+                phoneNumber:
+                    type: string
+                addresses:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/user.v1.Address'
+                contacts:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/user.v1.Contact'
+tags:
+    - name: HealthCheck
+    - name: User

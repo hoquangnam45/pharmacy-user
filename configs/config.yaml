@@ -1,0 +1,25 @@
+service:
+  name: ${SERVICE_NAME:pharmacy_user}
+  version: 0.0.1-SNAPSHOT
+server:
+  http:
+    addr: 0.0.0.0:8000
+    timeout: 3s
+  grpc:
+    addr: 0.0.0.0:9000
+    timeout: 3s
+data:
+  database:
+    host: ${DB_HOST:localhost}
+    username: "${DB_USERNAME:postgres}"
+    password: "${DB_PASSWORD:postgres}"
+    port: "${DB_PORT:5432}"
+    database: "${DB_DATABASE:postgres}"
+    migratePath: "${DB_MIGRATE_PATH:../migrations}"
+  redis:
+    host: "${REDIS_HOST:127.0.0.1}"
+    port: "${REDIS_PORT:6379}"
+    username: "${REDIS_USERNAME:}"
+    password: "${REDIS_PASSWD:}"
+    read_timeout: 0.2s
+    write_timeout: 0.2s
